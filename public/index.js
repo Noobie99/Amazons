@@ -14,6 +14,7 @@ let selField = [-1, -1];
 
 let wasPiece = -1;
 let wasMove = false;
+let finished = false;
 
 //start new game
 document.getElementById("newGame").addEventListener("click", function() {
@@ -82,17 +83,7 @@ database.DB.collection("turn").onSnapshot(snapshot => {
             database.turn = parseInt(change.doc.data().turn);
 
             checkDeaths();
-            let isOneAlive = false;
-            for (let i=0; i<database.teams;i++)
-            {       
-                if (!dead[i])
-                {
-                    isOneAlive = true;
-                    break;
-                }
-            }
-
-            while (dead[database.turn%database.teams] && isOneAlive)
+            while (dead[database.turn%database.teams] && !finished)
             {
                 database.turn++;
             }
@@ -152,7 +143,7 @@ function loadGame()
             drawAll(pieces, blockedFields);
 
             checkDeaths();
-            while (dead[database.turn%database.teams]) {
+            while (!finished && dead[database.turn%database.teams]) {
                 database.turn++;
                 if (!dead[database.turn%database.teams])
                     checkDeaths();
@@ -311,7 +302,8 @@ function checkDeaths() {
         {
             if (!dead[i])
             {
-                alert("PAUL IST EIN HUUUUURRRENSOHN!!! (" + ALL_COLOURS[(i)] + " won!)");
+                alert("PAUL IST EIN HUUUUURRRENSOHN!!! (" + ALL_COLOURS[i] + " won!)");
+                finished = true;
                 break;
             }
         }

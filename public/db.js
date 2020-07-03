@@ -47,7 +47,6 @@ export class Database
             x: nX,
             y: nY,
         });
-        console.log("false")
         this.DB.collection("moved").doc("gWP9vr5Eblflc75gJDnr").update({
             moved: true,
             selX: nX,
@@ -56,7 +55,6 @@ export class Database
     }
 
     dbDead(pTeam) {
-        console.log("here");
         this.DB.collection("dead").doc(pTeam.toString()).update({
             dead: true
         });
