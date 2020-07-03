@@ -92,6 +92,14 @@ database.DB.collection("turn").onSnapshot(snapshot => {
     })
 });
 
+database.DB.collection("moved").onSnapshot(snapshot => {
+    snapshot.docChanges().forEach(change => {
+        let data = change.doc.data();
+        selField = [data.selX, data.selY];
+        wasMove = data.moved;
+    })
+});
+
 function loadGame()
 {
     //reset important variables
@@ -157,7 +165,6 @@ function loadGame()
         selField[0] = data.selX;
         selField[1] = data.selY;
     })
-
 }
 
 //load game
@@ -269,6 +276,8 @@ function checkDeaths() {
         return;
     }
 
+    if (pieces.length == 0) return;
+
     setInvalidPositions();
 
     let isdead = true;
@@ -295,6 +304,9 @@ function checkDeaths() {
     let count = 0;
     for (const d of dead) {
         if (!d) count++;
+    }
+    if (count == 0) {
+        dead[0] = false;
     }
     if (count < 2)
     {

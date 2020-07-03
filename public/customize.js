@@ -70,7 +70,6 @@ function createMenu()
     menuC.width = mWidth * 40;
     menuC.height = mHeight * 40;
 
-    console.log(menuC.width, menuC.height)
     document.body.appendChild(menuC);
 
     button2 = document.createElement("button");
@@ -102,13 +101,11 @@ function handleClick2(e) {
     pos[0] = Math.ceil( (e.clientX-rect.left) / 40 );
     pos[1] = Math.ceil( (e.clientY-rect.top) / 40 );
     
-    console.log(pos)
     board[pos[1]][pos[0]] = (board[pos[1]][pos[0]] + 1) % (mTeams + 2);
     drawMenu();
 }
 
 function drawMenu() {
-    console.log(mHeight, mWidth);
     for (let i=1; i<=mHeight; i++) {
         for (let j=1; j<=mWidth; j++) {
             if (board[i][j] == 1) {

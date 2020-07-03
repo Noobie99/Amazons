@@ -90,7 +90,7 @@ export class Database
         this.DB.collection("moved").doc("gWP9vr5Eblflc75gJDnr").update({
             moved: false
         });
-        for (let i=0; i<this.teams; i++) {
+        for (let i=0; i<10; i++) {
             this.DB.collection("dead").doc(i.toString()).update({
                 dead: false
             });
